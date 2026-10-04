@@ -1,0 +1,20 @@
+name: "✅ Fixed Demo (pinned to commit SHA)"
+
+# Identical to vulnerable-demo.yml, except fake-action is referenced by its
+# immutable commit SHA instead of the mutable tag @v1. Moving the v1 tag
+# (scripts/simulate-attack.sh) has zero effect on this workflow — it always
+# resolves to the exact code at this SHA, forever.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-fixed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call fake-action pinned by commit SHA (immutable)
+        uses: geethika-sandireddy/ActionGaurd-demo/fake-action@9a9bab0741f13aae03e511d33dacaff05ac6e165
+        with:
+          demo-secret: ${{ secrets.DEMO_FAKE_SECRET || 'FAKE-DEMO-SECRET-1234-NOT-REAL' }}

@@ -1,0 +1,20 @@
+name: 'Fake Changelog Formatter (Demo Action)'
+description: >
+  A harmless demo "third-party" action — standing in for something like
+  tj-actions/changed-files. This is the SAFE build: it formats a changelog
+  line and nothing else.
+inputs:
+  demo-secret:
+    description: 'A fake secret the consumer workflow passes in, just for the demo'
+    required: false
+    default: 'not-provided'
+runs:
+  using: 'composite'
+  steps:
+    - name: Run fake-action (safe build)
+      shell: bash
+      run: |
+        echo "✅ fake-action@v1 (SAFE build) running"
+        echo "This build only formats a changelog line."
+        echo "It does not read, log, or transmit the demo-secret input."
+        echo "It makes no network calls."

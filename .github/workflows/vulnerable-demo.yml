@@ -1,0 +1,24 @@
+name: "🔴 Vulnerable Demo (pinned to mutable tag)"
+
+# This workflow calls fake-action the way most people reference a
+# third-party action: by a version tag. That tag is MUTABLE — whoever
+# controls it can repoint it at different code at any time, and this
+# workflow file would never need to change.
+#
+# Run it from the Actions tab (workflow_dispatch) before and after
+# scripts/simulate-attack.sh to see the exact same YAML produce different
+# behaviour.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-vulnerable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Call fake-action pinned by TAG (@v1)
+        uses: geethika-sandireddy/ActionGaurd-demo/fake-action@v1
+        with:
+          demo-secret: ${{ secrets.DEMO_FAKE_SECRET || 'FAKE-DEMO-SECRET-1234-NOT-REAL' }}

